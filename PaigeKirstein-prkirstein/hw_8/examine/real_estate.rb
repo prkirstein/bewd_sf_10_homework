@@ -20,7 +20,10 @@ def create_building
   building.apartments.each do |apartment|
     assign_renter(apartment)
   end
-  puts building
+  puts "#{building.name} has #{building.apartments.count} apartments."
+  # I tried to call building.apartments.renter so that I can speak about the number of vancant
+  # apartments, but I checked building.apartments.class and it returned array, not apartments
+  # I think this is the reason I can't call renter, but I can't seem to figure out why it got that way!
   #I need to work with the to_s methods in the individual documents to make this out put prettier
 end
 
@@ -78,8 +81,8 @@ def assign_renter(apartment)
         if renter_requirements(apartment.renter) == true
           puts "#{apartment.renter} is approved to rent this apartment."
         else
+          puts "#{apartment.renter} is not eligible to rent this apartment. #{apartment.name} will remain vacant" # this violates never repeat yourself, eek!
           apartment.renter = nil
-          puts "#{apartment.name} will remain vacant" # this violates never repeat yourself, eek!
         end
       else
         puts "#{apartment.name} will remain vacant"
